@@ -1995,7 +1995,7 @@ async function fbInit(){
     fbDb=getFirestore(fbApp);
     fbReadyFlag=true;
     return true;
-  }catch(e){ fbReadyFlag=false; return false; }
+  }catch(e){ fbReadyFlag=false; toast("Sync: "+(e&&e.message?e.message:e)); return false; }
 }
 async function syncSetItem(coll,id,data){
   if(!fbReady())return;
@@ -2041,6 +2041,7 @@ async function attachSync(){
   const {doc,collection,onSnapshot}=await import(FS_URL);
   const col=name=>collection(fbDb,"households",S.householdCode,name);
   const mdoc=name=>doc(fbDb,"households",S.householdCode,"meta",name);
+  const onErr=label=>e=>toast("Sync ("+label+"): "+(e&&e.message?e.message:e));
 
   fbUnsubs.push(onSnapshot(col("list"),snap=>{
     let changed=false;
@@ -2049,7 +2050,7 @@ async function attachSync(){
       if(mergeMapDoc(ch.doc.id,ch.doc.data(),S.list))changed=true;
     });
     if(changed){save();render();}
-  }));
+  },onErr("list")));
   fbUnsubs.push(onSnapshot(col("homeTasks"),snap=>{
     let changed=false;
     snap.docChanges().forEach(ch=>{
@@ -2057,7 +2058,7 @@ async function attachSync(){
       if(mergeMapDoc(ch.doc.id,ch.doc.data(),S.homeTasks))changed=true;
     });
     if(changed){save();render();}
-  }));
+  },onErr("homeTasks")));
   fbUnsubs.push(onSnapshot(col("todos"),snap=>{
     let changed=false; S.todos=S.todos||[];
     snap.docChanges().forEach(ch=>{
@@ -2065,7 +2066,7 @@ async function attachSync(){
       if(mergeArrayDoc(ch.doc.id,ch.doc.data(),S.todos))changed=true;
     });
     if(changed){save();render();}
-  }));
+  },onErr("todos")));
   fbUnsubs.push(onSnapshot(col("homeOneoff"),snap=>{
     let changed=false; S.homeOneoff=S.homeOneoff||[];
     snap.docChanges().forEach(ch=>{
@@ -2073,7 +2074,7 @@ async function attachSync(){
       if(mergeArrayDoc(ch.doc.id,ch.doc.data(),S.homeOneoff))changed=true;
     });
     if(changed){save();render();}
-  }));
+  },onErr("homeOneoff")));
   fbUnsubs.push(onSnapshot(mdoc("shopping"),snap=>{
     if(!snap.exists())return;
     const d=snap.data();
@@ -2081,14 +2082,14 @@ async function attachSync(){
      "defUnit","defNote","custom","lists"]
       .forEach(k=>{ if(d[k]!==undefined)S[k]=d[k]; });
     save();render();
-  }));
+  },onErr("meta/shopping")));
   fbUnsubs.push(onSnapshot(mdoc("home"),snap=>{
     if(!snap.exists())return;
     const d=snap.data();
     if(d.homeCustom!==undefined)S.homeCustom=d.homeCustom;
     if(d.homeRename!==undefined)S.homeRename=d.homeRename;
     save();render();
-  }));
+  },onErr("meta/home")));
   if(S.set.notifications)registerPushToken();
 }
 async function registerPushToken(){

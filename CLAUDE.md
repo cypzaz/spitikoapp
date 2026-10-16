@@ -164,6 +164,22 @@ Mono, `body.dark` class toggle.
   environment variables. Combines home-upkeep weekend-picks *and* grocery
   repeat-cycle-due items into one digest, sent per-device in that device's
   own language.
+- **Real-time sync initially looked "connected" but delivered nothing** —
+  writes (`get`/`write` on a known document) worked fine, but no change ever
+  arrived on the other phone. Root cause: `firestore.rules` denied `list` not
+  just on the top-level `households` collection (intentional — stops
+  enumerating codes) but also on everything nested under a specific
+  `households/{code}` (unintentional). `onSnapshot` on a collection is a
+  `list` operation under the hood, so every real-time listener
+  (`list`/`todos`/`homeTasks`/`homeOneoff` in `attachSync()`) was silently
+  rejected while direct get/write kept working — "synced" but nothing ever
+  showed up on the second device. Fixed by allowing `list` on the nested
+  `{collection}/{docId}` match (you can only reach that path by already
+  knowing `code`, so this doesn't reopen the enumeration hole) while keeping
+  it denied at the top level. `onSnapshot` calls in `attachSync()` and
+  `fbInit()`'s catch now also `toast()` any error instead of swallowing it
+  silently, specifically so a rules regression like this surfaces on-device
+  instead of requiring a debugging session like this one.
 - **`netlify.toml`'s `[build]` section has no `publish` key.** The
   standalone Spitiko app's first deploy failed with "Deploy directory
   '.toml' does not exist" from `publish = "."` — looked more like a stray

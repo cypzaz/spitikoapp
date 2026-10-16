@@ -1,7 +1,7 @@
 // Bump this string on every deploy — it's what forces old cached assets to be
 // dropped and lets a new index.html reach an already-installed phone with no
 // reinstall. (See CLAUDE.md "Deploying".)
-const CACHE_VERSION = "spitiko-merged-2026-10-16-1";
+const CACHE_VERSION = "spitiko-merged-2026-10-16-2";
 
 const PRECACHE = [
   "./",
