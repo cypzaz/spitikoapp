@@ -10,7 +10,14 @@ importScripts("https://www.gstatic.com/firebasejs/10.12.0/firebase-messaging-com
 // Mirrors FIREBASE_CONFIG in index.html — service workers can't import the
 // page's module scope, so this constant is kept in sync by hand. Not a
 // secret either way (see CLAUDE.md "Backend").
-const FIREBASE_CONFIG = null;
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyCc1lwf0UDMZedFBFoPXu773vRDJSfZots",
+  authDomain: "spitikoapp.firebaseapp.com",
+  projectId: "spitikoapp",
+  storageBucket: "spitikoapp.firebasestorage.app",
+  messagingSenderId: "223832242447",
+  appId: "1:223832242447:web:380092909a54c29f6a667a"
+};
 
 if (FIREBASE_CONFIG) {
   firebase.initializeApp(FIREBASE_CONFIG);

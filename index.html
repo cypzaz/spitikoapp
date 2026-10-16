@@ -1962,7 +1962,14 @@ function toast(m){const el=document.getElementById("toast");el.textContent=m;el.
    stays exactly as local/offline as it's always been — local storage is
    always the source of truth, this is sync on top, never a replacement.
    See CLAUDE.md "Real two-person sync" for the full design. */
-const FIREBASE_CONFIG=null; // filled in during Firebase setup, see SETUP.md
+const FIREBASE_CONFIG={
+  apiKey:"AIzaSyCc1lwf0UDMZedFBFoPXu773vRDJSfZots",
+  authDomain:"spitikoapp.firebaseapp.com",
+  projectId:"spitikoapp",
+  storageBucket:"spitikoapp.firebasestorage.app",
+  messagingSenderId:"223832242447",
+  appId:"1:223832242447:web:380092909a54c29f6a667a"
+};
 const VAPID_KEY=null;       // Cloud Messaging "Web Push certificates" key, same step
 const FS_URL="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 let fbApp=null, fbDb=null, fbAuth=null, fbReadyFlag=false, fbUnsubs=[];
