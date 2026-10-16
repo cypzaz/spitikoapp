@@ -17,8 +17,9 @@ manifest.json                 -- PWA manifest ("Spitiko")
 sw.js                         -- service worker (network-first shell, cache-first assets)
 firebase-messaging-sw.js      -- separate service worker, background push display only
 firestore.rules               -- household-code access rules
-netlify.toml                  -- intentionally minimal, see "Known gaps"
-backend-pending/              -- weekly-digest.js + package.json, parked until Firebase exists
+netlify.toml                  -- build config; see "Known gaps" for the no-`publish`-key reasoning
+netlify/functions/weekly-digest.js -- Friday-evening push digest (Admin SDK + FCM)
+package.json                  -- backend-only deps (firebase-admin) for the function above
 icons/                        -- PWA icons (reused from the standalone Spitiko app)
 CLAUDE.md, SETUP.md
 ```
@@ -151,30 +152,24 @@ Mono, `body.dark` class toggle.
 
 ## Known gaps / status
 
-- **`weekly-digest.js` is parked in `backend-pending/`, not deployed** —
-  same reasoning as the standalone Spitiko app's first deploy attempt: it's
-  the only thing in this repo needing npm (`firebase-admin`), and it can't do
-  anything useful until the Firebase project in SETUP.md step 3 exists
-  anyway. Updated for the new `households/{code}` structure and now combines
-  home-upkeep weekend-picks *and* grocery repeat-cycle-due items into one
-  digest, sent per-device in that device's own language. **To restore**: move
-  `backend-pending/weekly-digest.js` → `netlify/functions/weekly-digest.js`
-  and `backend-pending/package.json` → the repo root, then add to
-  `netlify.toml`:
-  ```toml
-  [build]
-    functions = "netlify/functions"
-
-  [functions."weekly-digest"]
-    schedule = "0 16 * * 5"
-  ```
-- **`netlify.toml` deliberately has no `[build]`/`publish` key at all.** The
+- **Firebase is live.** `FIREBASE_CONFIG` and `VAPID_KEY` are wired into
+  `index.html`/`firebase-messaging-sw.js`, Firestore + Anonymous Auth are
+  enabled, `firestore.rules` is published and verified end-to-end (anonymous
+  sign-in, authenticated get/write, denied unauthenticated write, denied
+  `list` on the `households` collection — all tested directly against the
+  REST API during setup). `weekly-digest.js` has been moved back from
+  `backend-pending/` into `netlify/functions/`, its `package.json` back to
+  the repo root, and `netlify.toml` now has the `functions` directory and
+  the Friday-schedule block. `FIREBASE_SERVICE_ACCOUNT` is set in Netlify's
+  environment variables. Combines home-upkeep weekend-picks *and* grocery
+  repeat-cycle-due items into one digest, sent per-device in that device's
+  own language.
+- **`netlify.toml`'s `[build]` section has no `publish` key.** The
   standalone Spitiko app's first deploy failed with "Deploy directory
   '.toml' does not exist" from `publish = "."` — looked more like a stray
   Netlify dashboard Build-settings override than a real toml bug. Leaving
-  `publish` unset (defaults to repo root) sidestepped it entirely. If a
-  `[build]` section is ever added back (e.g. when restoring the function
-  above), leave `publish` out of it or use `"/"`, never `"."`, and check the
+  `publish` unset (defaults to repo root) sidestepped it entirely. If
+  `publish` is ever set explicitly, use `"/"`, never `"."`, and check the
   dashboard's own Publish-directory field isn't set to something stray.
 - **Receipt photos from the old Laiki app don't migrate** — they live in
   Laiki's IndexedDB, not its Backup-copy JSON text, so the Import-from-Laiki
