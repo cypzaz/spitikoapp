@@ -457,6 +457,8 @@ const T={
   householdCode:"Household code",createCode:"Create a code",joinCode:"I have a code",
   enterCode:"Enter code",yourCode:"Your household code",copyCode:"Copy code",leaveCode:"Stop sharing",
   leaveCodeQ:"Stop syncing with this household? Your data on this phone stays, it just won't sync anymore.",
+  resync:"Resync this phone's data",resyncD:"Pushes everything already on this phone into the shared household — use this if something you had before turning sharing on never showed up on the other phone.",
+  resyncDone:"Resynced",
   importLaiki:"Import from old Laiki backup",importHome:"Import from old Spitiko backup",
   importHelpD:"Paste the backup text from the old app's Settings → Backup → Copy, then Import.",
   importBtn2:"Import",importedOk:"Imported"},
@@ -546,6 +548,8 @@ const T={
   householdCode:"Κωδικός νοικοκυριού",createCode:"Δημιούργησε κωδικό",joinCode:"Έχω κωδικό",
   enterCode:"Εισαγωγή κωδικού",yourCode:"Ο κωδικός του νοικοκυριού σου",copyCode:"Αντιγραφή κωδικού",leaveCode:"Διακοπή κοινής χρήσης",
   leaveCodeQ:"Διακοπή συγχρονισμού με αυτό το νοικοκυριό; Τα δεδομένα σου παραμένουν εδώ, απλά δεν θα συγχρονίζονται πια.",
+  resync:"Επανασυγχρονισμός δεδομένων αυτού του τηλεφώνου",resyncD:"Στέλνει ό,τι έχει ήδη αυτό το τηλέφωνο στο κοινό νοικοκυριό — χρησιμοποίησέ το αν κάτι που είχες πριν ενεργοποιήσεις την κοινή χρήση δεν εμφανίστηκε στο άλλο τηλέφωνο.",
+  resyncDone:"Επανασυγχρονίστηκε",
   importLaiki:"Εισαγωγή από παλιό αντίγραφο Laiki",importHome:"Εισαγωγή από παλιό αντίγραφο Spitiko",
   importHelpD:"Επικόλλησε το κείμενο αντιγράφου από Ρυθμίσεις → Αντίγραφο → Αντιγραφή της παλιάς εφαρμογής, μετά Εισαγωγή.",
   importBtn2:"Εισαγωγή",importedOk:"Εισήχθη"}
@@ -1898,6 +1902,8 @@ function viewSet(){
     h+='<div class="fld"><label>'+t("yourCode")+'</label><input id="f_code_view" disabled value="'+esc(S.householdCode)+'"></div>';
     h+='<div class="sheetbtns" style="margin-bottom:10px"><button class="ghost" data-act="copycode">'+t("copyCode")+'</button>'
       +'<button class="ghost warn" data-act="askleavecode">'+t("leaveCode")+'</button></div>';
+    h+='<button class="ghost" data-act="resync" style="width:100%;margin-bottom:4px">'+t("resync")+'</button>';
+    h+='<p style="font-size:11px;color:var(--sub);margin:4px 0 10px">'+t("resyncD")+'</p>';
   }else{
     h+='<div class="fld"><label>'+t("enterCode")+'</label><input id="f_code" placeholder="________" maxlength="8"></div>';
     h+='<div class="sheetbtns" style="margin-bottom:10px"><button class="ghost" data-act="createcode">'+t("createCode")+'</button>'
@@ -2109,20 +2115,42 @@ async function registerPushToken(){
     }
   }catch(e){}
 }
-function createHouseholdCode(){
-  S.householdCode=genCode();
-  save(); render(); attachSync();
+/* Pushes everything already on this device into the household once sync
+   connects — without this, only items added/changed *after* the code was
+   set ever reached Firestore, silently leaving out whatever was already in
+   the cart/schedule/to-dos from before sharing was turned on. Both the
+   creating device and a joining device call this, so pre-existing data from
+   either phone merges in rather than one side's history going missing. */
+async function syncPushAll(){
+  if(!fbReady())return;
+  Object.keys(S.list).forEach(id=>syncSetItem("list",id,S.list[id]));
+  (S.todos||[]).forEach(n=>syncSetItem("todos",n.id,n));
+  Object.keys(S.homeTasks).forEach(id=>syncSetItem("homeTasks",id,S.homeTasks[id]));
+  (S.homeOneoff||[]).forEach(n=>syncSetItem("homeOneoff",n.id,n));
 }
-function joinHouseholdCode(){
+async function createHouseholdCode(){
+  S.householdCode=genCode();
+  save(); render();
+  await attachSync();
+  await syncPushAll();
+}
+async function joinHouseholdCode(){
   const v=(document.getElementById("f_code").value||"").trim().toUpperCase();
   if(!v)return;
   S.householdCode=v;
-  save(); render(); attachSync();
+  save(); render();
+  await attachSync();
+  await syncPushAll();
 }
 function leaveHouseholdCode(){
   fbUnsubs.forEach(u=>{try{u();}catch(e){}}); fbUnsubs=[];
   S.householdCode=null;
   save(); render();
+}
+async function resyncNow(){
+  await attachSync();
+  await syncPushAll();
+  toast(t("resyncDone"));
 }
 async function copyHouseholdCode(){
   try{await navigator.clipboard.writeText(S.householdCode||"");}catch(e){}
@@ -2275,6 +2303,7 @@ document.addEventListener("click",e=>{
     case "createcode": createHouseholdCode(); render(); break;
     case "joincode": joinHouseholdCode(); render(); break;
     case "copycode": copyHouseholdCode(); break;
+    case "resync": resyncNow(); break;
     case "askleavecode": confirmSheet(t("leaveCodeQ"),t("leaveCode"),"doleavecode"); break;
     case "doleavecode": leaveHouseholdCode(); closeSheet(); render(); break;
 
