@@ -1,0 +1,29 @@
+rules_version = '2';
+
+// Household "lock code" model: anyone who knows the 8-character code can
+// read/write that household's data — like a shared lock code, not a
+// per-person account. Anonymous Auth just keeps requests authenticated;
+// the code itself is the access control.
+//
+// `get`/per-document access is allowed for any authenticated client, but
+// `list` (querying a collection to discover what's in it) is denied at the
+// household level — without that, any anonymous client could enumerate
+// every household ever created instead of needing to already know one's
+// code. This doesn't stop someone brute-forcing a single code directly,
+// the same accepted limitation as a physical lock code.
+//
+// The weekly-digest Netlify function reads/writes via the Admin SDK, which
+// bypasses these rules entirely (expected, documented in SETUP.md).
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /households/{code} {
+      allow get, write: if request.auth != null;
+      allow list: if false;
+
+      match /{collection}/{docId} {
+        allow get, write: if request.auth != null;
+        allow list: if false;
+      }
+    }
+  }
+}

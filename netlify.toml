@@ -1,0 +1,13 @@
+# No [build] section at all: with nothing set, Netlify publishes from the
+# repository root by default, which is exactly right for this zero-build
+# static app. Explicitly setting `publish = "."` broke the Spitiko site's
+# first deploy (see its CLAUDE.md "Known gaps") — omitting the key avoids
+# that entirely. If this ever needs to be explicit again, try `publish = "/"`
+# rather than `"."`, and double-check the Netlify dashboard's own Build
+# settings → Publish directory field isn't overriding it with a stray value.
+#
+# weekly-digest.js + its package.json live in backend-pending/ until the
+# Firebase project from SETUP.md exists — see CLAUDE.md "Known gaps" for
+# exactly how to restore them (move both back, then add a [build] section
+# with `functions = "netlify/functions"` plus a `[functions."weekly-digest"]`
+# schedule block).

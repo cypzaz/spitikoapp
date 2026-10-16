@@ -1,0 +1,8 @@
+{
+  "name": "spitiko-functions",
+  "private": true,
+  "description": "Backend-only deps for netlify/functions — the frontend (index.html) stays zero-dependency.",
+  "dependencies": {
+    "firebase-admin": "^12.0.0"
+  }
+}

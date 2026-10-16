@@ -1,0 +1,72 @@
+[
+  {"id":"kitchen-oven","room":"kitchen","en":"Deep clean oven (inside & racks)","gr":"Βαθύ καθάρισμα φούρνου (εσωτερικό & σχάρες)","freqDays":60,"estMinutes":60},
+  {"id":"kitchen-kettle","room":"kitchen","en":"Descale kettle","gr":"Αφαλάτωση βραστήρα","freqDays":60,"estMinutes":15},
+  {"id":"kitchen-hood","room":"kitchen","en":"Clean extractor hood filter","gr":"Καθάρισμα φίλτρου απορροφητήρα","freqDays":60,"estMinutes":20},
+  {"id":"kitchen-sink","room":"kitchen","en":"Deep clean sink & descale tap aerator","gr":"Βαθύ καθάρισμα νεροχύτη & αφαλάτωση στομίου βρύσης","freqDays":60,"estMinutes":20},
+  {"id":"kitchen-fridge-inside","room":"kitchen","en":"Clean fridge interior & check expired items","gr":"Καθάρισμα εσωτερικού ψυγείου & έλεγχος ληγμένων","freqDays":60,"estMinutes":30},
+  {"id":"kitchen-fridge-behind","room":"kitchen","en":"Move fridge & clean behind/underneath","gr":"Μετακίνηση ψυγείου & καθάρισμα πίσω/από κάτω","freqDays":90,"estMinutes":30},
+  {"id":"kitchen-kickboards","room":"kitchen","en":"Mop under kitchen units / kickboards","gr":"Σφουγγάρισμα κάτω από ντουλάπια κουζίνας","freqDays":90,"estMinutes":20},
+  {"id":"kitchen-cabinets","room":"kitchen","en":"Wipe out inside of kitchen cabinets","gr":"Σκούπισμα εσωτερικού ντουλαπιών κουζίνας","freqDays":180,"estMinutes":45},
+
+  {"id":"living-windows","room":"living","en":"Clean interior windows","gr":"Καθάρισμα τζαμιών (εσωτερικά)","freqDays":60,"estMinutes":45},
+  {"id":"living-sofa","room":"living","en":"Vacuum/deep-clean sofa & flip cushions","gr":"Σκούπισμα/βαθύ καθάρισμα καναπέ & γύρισμα μαξιλαριών","freqDays":90,"estMinutes":45},
+  {"id":"living-under-furniture","room":"living","en":"Move furniture, dust skirting boards & mop underneath","gr":"Μετακίνηση επίπλων, ξεσκόνισμα σοβατεπί & σφουγγάρισμα από κάτω","freqDays":90,"estMinutes":30},
+  {"id":"living-lights","room":"living","en":"Clean light fixtures & ceiling corners/cobwebs","gr":"Καθάρισμα φωτιστικών & γωνιών οροφής/ιστών αράχνης","freqDays":90,"estMinutes":20},
+  {"id":"living-carpet","room":"living","en":"Deep clean carpet/rug","gr":"Βαθύ καθάρισμα χαλιού","freqDays":180,"estMinutes":90},
+  {"id":"living-curtains","room":"living","en":"Wash curtains","gr":"Πλύσιμο κουρτινών","freqDays":180,"estMinutes":60},
+  {"id":"living-walls","room":"living","en":"Wipe walls, light switches & door handles","gr":"Σκούπισμα τοίχων, διακοπτών & πορτών","freqDays":180,"estMinutes":20},
+
+  {"id":"bedroom-mattress","room":"bedroom","en":"Rotate & vacuum mattress","gr":"Γύρισμα & σκούπισμα στρώματος","freqDays":90,"estMinutes":20},
+  {"id":"bedroom-under-bed","room":"bedroom","en":"Clean under bed & inside wardrobe","gr":"Καθάρισμα κάτω από το κρεβάτι & μέσα στην ντουλάπα","freqDays":90,"estMinutes":30},
+  {"id":"bedroom-pillows","room":"bedroom","en":"Wash pillows & duvet","gr":"Πλύσιμο μαξιλαριών & παπλώματος","freqDays":180,"estMinutes":30},
+  {"id":"bedroom-wardrobe","room":"bedroom","en":"Declutter & wipe out wardrobe interior","gr":"Τακτοποίηση & σκούπισμα εσωτερικού ντουλάπας","freqDays":180,"estMinutes":45},
+  {"id":"ensuite-grout","room":"ensuite","en":"Scrub ensuite grout & tiles","gr":"Τρίψιμο αρμών & πλακιδίων (μπάνιο υπνοδωματίου)","freqDays":90,"estMinutes":30},
+  {"id":"ensuite-descale","room":"ensuite","en":"Descale ensuite showerhead & tap","gr":"Αφαλάτωση ντουζιέρας & βρύσης (μπάνιο υπνοδωματίου)","freqDays":60,"estMinutes":15},
+  {"id":"ensuite-behind-toilet","room":"ensuite","en":"Clean behind toilet & under sink cabinet","gr":"Καθάρισμα πίσω από τουαλέτα & κάτω από νιπτήρα","freqDays":60,"estMinutes":15},
+  {"id":"ensuite-fan","room":"ensuite","en":"Clean ensuite extractor fan","gr":"Καθάρισμα εξαερισμού (μπάνιο υπνοδωματίου)","freqDays":180,"estMinutes":15},
+
+  {"id":"bathroom-grout","room":"bathroom","en":"Scrub bathroom grout & tiles","gr":"Τρίψιμο αρμών & πλακιδίων μπάνιου","freqDays":90,"estMinutes":20},
+  {"id":"bathroom-descale","room":"bathroom","en":"Descale bathroom tap/shower","gr":"Αφαλάτωση βρύσης/ντουζιέρας μπάνιου","freqDays":60,"estMinutes":15},
+  {"id":"bathroom-behind-toilet","room":"bathroom","en":"Clean behind toilet & under sink","gr":"Καθάρισμα πίσω από τουαλέτα & κάτω από νιπτήρα","freqDays":60,"estMinutes":15},
+  {"id":"bathroom-fan","room":"bathroom","en":"Clean bathroom extractor fan","gr":"Καθάρισμα εξαερισμού μπάνιου","freqDays":180,"estMinutes":15},
+
+  {"id":"office-electronics","room":"office","en":"Dust electronics/cables & vacuum behind desk","gr":"Ξεσκόνισμα ηλεκτρονικών/καλωδίων & σκούπισμα πίσω από γραφείο","freqDays":60,"estMinutes":20},
+  {"id":"office-windows","room":"office","en":"Clean office windows","gr":"Καθάρισμα τζαμιών γραφείου","freqDays":60,"estMinutes":20},
+  {"id":"office-under-furniture","room":"office","en":"Deep clean under office furniture","gr":"Βαθύ καθάρισμα κάτω από έπιπλα γραφείου","freqDays":90,"estMinutes":20},
+
+  {"id":"balcony-floor","room":"balcony","en":"Sweep & wash balcony floor","gr":"Σκούπισμα & πλύσιμο δαπέδου μπαλκονιού","freqDays":30,"estMinutes":20},
+  {"id":"balcony-railings","room":"balcony","en":"Clean railings & glass panels","gr":"Καθάρισμα κουπαστών & τζαμιών μπαλκονιού","freqDays":60,"estMinutes":20},
+  {"id":"balcony-drains","room":"balcony","en":"Clear balcony drainage holes","gr":"Καθαρισμός οπών αποστράγγισης μπαλκονιού","freqDays":90,"estMinutes":15,"note":"Extra important before the autumn/winter rains."},
+
+  {"id":"veranda-detergent","room":"veranda","en":"Clean detergent drawer & check door seal for mould","gr":"Καθάρισμα συρταριού απορρυπαντικού & έλεγχος λάστιχου για μούχλα","freqDays":30,"estMinutes":10},
+  {"id":"veranda-drum","room":"veranda","en":"Run washing-machine drum-clean cycle","gr":"Κύκλος καθαρισμού τύμπανου πλυντηρίου","freqDays":60,"estMinutes":15},
+  {"id":"veranda-floor","room":"veranda","en":"Wipe veranda floor & drains","gr":"Σκούπισμα δαπέδου & αποχετεύσεων βεράντας","freqDays":60,"estMinutes":15},
+
+  {"id":"roof-soil-spring","room":"roof","en":"Refresh soil & repot plants (spring)","gr":"Ανανέωση χώματος & μεταφύτευση γλαστρών (άνοιξη)","freqDays":365,"estMinutes":60,"activeMonths":[3,4]},
+  {"id":"roof-soil-autumn","room":"roof","en":"Refresh soil & repot plants (autumn)","gr":"Ανανέωση χώματος & μεταφύτευση γλαστρών (φθινόπωρο)","freqDays":365,"estMinutes":60,"activeMonths":[10,11]},
+  {"id":"roof-bbq","room":"roof","en":"Clean BBQ station (grill & surfaces)","gr":"Καθάρισμα σταθμού BBQ (ψησταριά & επιφάνειες)","freqDays":60,"estMinutes":30},
+  {"id":"roof-sink","room":"roof","en":"Clean roof sink & surrounding area","gr":"Καθάρισμα νεροχύτη ταράτσας & περιβάλλοντος χώρου","freqDays":60,"estMinutes":15},
+  {"id":"roof-floor","room":"roof","en":"Hose down & deep clean roof floor","gr":"Πλύσιμο με λάστιχο & βαθύ καθάρισμα δαπέδου ταράτσας","freqDays":60,"estMinutes":30},
+  {"id":"roof-furniture","room":"roof","en":"Check roof furniture for rust/wear","gr":"Έλεγχος επίπλων ταράτσας για σκουριά/φθορά","freqDays":180,"estMinutes":20},
+
+  {"id":"solar-clean","room":"solar","en":"Clean & inspect solar panels","gr":"Καθάρισμα & έλεγχος ηλιακών πάνελ","freqDays":60,"estMinutes":30,"activeMonths":[3,4,5,6,7,8,9,10],"note":"Skipped Nov–Feb — winter rain cleans them naturally in Cyprus."},
+  {"id":"solar-service","room":"solar","en":"Book annual professional solar efficiency check","gr":"Κλείσιμο ετήσιου επαγγελματικού ελέγχου απόδοσης ηλιακών","freqDays":365,"estMinutes":10},
+
+  {"id":"water-softener-salt","room":"water","en":"Check & top up water-softener salt","gr":"Έλεγχος & συμπλήρωση αλατιού αποσκληρυντή νερού","freqDays":30,"estMinutes":10},
+  {"id":"water-roof-filter","room":"water","en":"Replace main rooftop sediment/dirt filter cartridge","gr":"Αντικατάσταση κύριου φίλτρου ιζήματος/ακαθαρσιών ταράτσας","freqDays":90,"estMinutes":15},
+  {"id":"water-undersink-filter","room":"water","en":"Check/replace under-sink drinking-water filter cartridge(s)","gr":"Έλεγχος/αντικατάσταση φίλτρων πόσιμου νερού κάτω από νεροχύτη","freqDays":180,"estMinutes":20,"note":"Verify the exact interval against this filter's manual — cartridge life varies by stage/brand."},
+  {"id":"water-undersink-sanitize","room":"water","en":"Sanitize under-sink filter housing","gr":"Απολύμανση περιβλήματος φίλτρου κάτω από νεροχύτη","freqDays":365,"estMinutes":20},
+  {"id":"water-softener-tank","room":"water","en":"Clean water-softener brine tank","gr":"Καθάρισμα δεξαμενής άλμης αποσκληρυντή","freqDays":365,"estMinutes":20},
+
+  {"id":"ac-filters-offseason","room":"ac","en":"Clean AC filters","gr":"Καθάρισμα φίλτρων κλιματιστικού","freqDays":60,"estMinutes":15,"activeMonths":[1,2,3,4,5,10,11,12]},
+  {"id":"ac-filters-summer","room":"ac","en":"Clean AC filters (peak summer use)","gr":"Καθάρισμα φίλτρων κλιματιστικού (αιχμή καλοκαιριού)","freqDays":30,"estMinutes":15,"activeMonths":[6,7,8,9]},
+  {"id":"ac-condenser","room":"ac","en":"Clean AC outdoor condenser unit(s)","gr":"Καθάρισμα εξωτερικών μονάδων κλιματιστικού","freqDays":180,"estMinutes":20},
+  {"id":"ac-service","room":"ac","en":"Book annual professional AC service (before summer)","gr":"Κλείσιμο ετήσιου επαγγελματικού σέρβις κλιματιστικού (πριν το καλοκαίρι)","freqDays":365,"estMinutes":10,"activeMonths":[3,4]},
+
+  {"id":"general-switches","room":"general","en":"Clean light switches, door handles & remotes","gr":"Καθάρισμα διακοπτών, πορτών & τηλεχειριστηρίων","freqDays":60,"estMinutes":15},
+  {"id":"general-cobwebs","room":"general","en":"Dust ceiling corners/cobwebs throughout","gr":"Ξεσκόνισμα γωνιών οροφής/ιστών αράχνης σε όλο το σπίτι","freqDays":90,"estMinutes":20},
+  {"id":"general-entry","room":"general","en":"Clean entryway mat & wipe front door","gr":"Καθάρισμα χαλάκι εισόδου & σκούπισμα εξώπορτας","freqDays":90,"estMinutes":10},
+  {"id":"general-smoke","room":"general","en":"Check smoke-detector batteries","gr":"Έλεγχος μπαταριών ανιχνευτή καπνού","freqDays":180,"estMinutes":5},
+  {"id":"general-ext-windows","room":"general","en":"Clean exterior windows (where accessible)","gr":"Καθάρισμα τζαμιών εξωτερικά (όπου είναι προσβάσιμα)","freqDays":180,"estMinutes":60},
+  {"id":"general-caulking","room":"general","en":"Inspect caulking/seals in kitchen & bathrooms","gr":"Έλεγχος σιλικόνης/στεγανοποίησης κουζίνας & μπάνιων","freqDays":365,"estMinutes":15}
+]
