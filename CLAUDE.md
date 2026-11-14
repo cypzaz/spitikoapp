@@ -3,9 +3,17 @@
 Bilingual (English/Greek) PWA for Marios and his wife, Cyprus. One app covering
 groceries (ported from Laiki), home upkeep (ported from the standalone Spitiko app),
 and a general to-do/reminders list — kept in sync between their two phones via a
-household code. This repo (`APPARMENT` on disk) supersedes both `../Claude` (Laiki)
-and `../Spitiko` as the one actively developed app going forward; those two stay live
-and untouched but aren't developed further.
+household code. This repo (`spitikoapp`, cloned to `Desktop\PC\Code\spitikoapp`)
+supersedes both the old Laiki and standalone Spitiko repos as the one actively developed
+app going forward; those two are archived on GitHub (read-only), their sites stay live
+but they aren't developed further, and they're no longer kept on disk.
+
+## Working across computers
+
+GitHub (`cypzaz/spitikoapp`) is the single source of truth — the user works from
+several machines (home PC, laptop, work PC). Start every session with `git pull`,
+end it with commit + push. Claude chat history is per-machine and doesn't sync, so
+record where work left off in this file before pushing.
 
 ## Repo layout
 
