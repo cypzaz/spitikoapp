@@ -134,6 +134,20 @@ Onboarding lives in Settings → Sharing: "Create a code" (`genCode()`, 8
 random characters, client-side) or "I have a code" (just types in the
 partner's). No code = 100% local/offline, exactly like both original apps.
 
+Both `createHouseholdCode()` and `joinHouseholdCode()` call `syncPushAll()`
+right after `attachSync()` connects — it pushes everything already on that
+device (`S.list`, `S.todos`, `S.homeTasks`, `S.homeOneoff`) into the
+household, so whichever side already had data before sharing was turned on
+doesn't just silently stay invisible to the other phone. This only runs at
+that one moment (not on every ordinary app launch) because `syncSetItem()`
+always stamps a fresh `updatedAt`, so pushing a device's possibly-stale
+local copy on every reconnect could outrace and clobber a partner's real
+edit under last-write-wins — it's deliberately an explicit, occasional
+action, not an automatic one. For a device whose code was already set
+before this existed, Settings → Sharing has a manual **"Resync this
+phone's data"** button that calls the same `attachSync()` +
+`syncPushAll()` pair on demand.
+
 ## Deploying
 
 GitHub repo → Netlify, auto-deploy on push. I run `git commit`/`git push`
@@ -180,6 +194,15 @@ Mono, `body.dark` class toggle.
   `fbInit()`'s catch now also `toast()` any error instead of swallowing it
   silently, specifically so a rules regression like this surfaces on-device
   instead of requiring a debugging session like this one.
+- **Even after the rules fix, pre-existing data still didn't show up on the
+  other phone** — only items added/changed *after* a household code was set
+  ever reached Firestore; whatever was already in the cart/schedule/to-dos
+  from before sharing was turned on had never been individually pushed.
+  Fixed by `syncPushAll()`, called once when a code is created or joined
+  (see "Real two-person sync" above for why it's not called on every
+  ordinary launch) plus a manual "Resync this phone's data" button in
+  Settings → Sharing for codes that were already set up before this fix
+  existed.
 - **`netlify.toml`'s `[build]` section has no `publish` key.** The
   standalone Spitiko app's first deploy failed with "Deploy directory
   '.toml' does not exist" from `publish = "."` — looked more like a stray
